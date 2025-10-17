@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -126,7 +126,7 @@ vim.o.undofile = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.o.smartcase = false
 
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
@@ -152,6 +152,18 @@ vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- Set indentation to use spaces
+vim.opt.expandtab = true
+
+-- Define the width of an indent (e.g., 2 spaces)
+vim.opt.shiftwidth = 2
+
+-- Define how many spaces a tab character is displayed as
+vim.opt.tabstop = 2
+
+-- Define the number of spaces inserted when pressing Tab in Insert mode
+vim.opt.softtabstop = 2
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
@@ -165,6 +177,17 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- reload files if changed outside vim
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'CursorHoldI', 'FocusGained' }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { '*' },
+})
+vim.api.nvim_create_autocmd(
+  { 'FileChangedShellPost' },
+  { command = 'echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None', pattern = { '*' } }
+)
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -246,8 +269,12 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  -- Add vim-fugitive here
+  'tpope/vim-fugitive',
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  'towolf/vim-helm',
+  'mg979/vim-visual-multi',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -698,6 +725,9 @@ require('lazy').setup({
             },
           },
         },
+        helm_ls = {},
+        terraformls = {},
+        jinja_lsp = {},
       }
 
       -- Ensure the servers and tools above are installed
