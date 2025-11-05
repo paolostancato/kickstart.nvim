@@ -714,6 +714,10 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        gopls = {},
+        helm_ls = {},
+        jinja_lsp = {},
+        jsonls = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -728,11 +732,8 @@ require('lazy').setup({
             },
           },
         },
-        helm_ls = {},
-        terraformls = {},
-        jinja_lsp = {},
-        gopls = {},
         pylsp = {},
+        terraformls = {},
       }
       -- Ensure the servers and tools above are installed
       --
