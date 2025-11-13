@@ -442,6 +442,12 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
+        defaults = {
+          file_ignore_patterns = {
+            '__pycache__',
+            'venv',
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
