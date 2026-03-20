@@ -433,6 +433,7 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local pickers_file_ignore_patterns = { '.idea', '.git/', '.pytest_cache', '.ruff_cache', '.terraform', '.vscode', 'venv' }
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -442,13 +443,25 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        defaults = {
-          file_ignore_patterns = {
-            '__pycache__',
-            'venv',
+        pickers = {
+          find_files = {
+            file_ignore_patterns = pickers_file_ignore_patterns,
+            hidden = true,
+          },
+          live_grep = {
+            file_ignore_patterns = pickers_file_ignore_patterns,
+            additional_args = function(_)
+              return { '--hidden' }
+            end,
           },
         },
-        -- pickers = {}
+        defaults = {
+          layout_config = {
+            horizontal = {
+              preview_width = 0.5,
+            },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
