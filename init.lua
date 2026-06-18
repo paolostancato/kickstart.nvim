@@ -433,7 +433,7 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
-      local pickers_file_ignore_patterns = { '.idea', '.git/', '.pytest_cache', '.ruff_cache', '.terraform', '.vscode', 'venv' }
+      local pickers_file_ignore_patterns = { '.idea', '.git/', '.pytest_cache', '.ruff_cache', '.terraform', '.vscode', '^venv' }
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
